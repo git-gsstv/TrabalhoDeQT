@@ -8,7 +8,7 @@ constructor(page: Page) {
     }
 
 async login(email: string, password: string) {
-        await this.page.goto('https://ruralink.free.laravel.cloud/login');
+        await this.page.goto('https://omnibusdrive.up.railway.app/login');
         await this.page.type('input[name="email"]', email);
         await this.page.type('input[name="password"]', password);
         await this.page.click('button[type="submit"]');
