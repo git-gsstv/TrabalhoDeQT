@@ -7,7 +7,7 @@ export class MotoristaPage {
         this.page = page;
     }
 
-    // Trocamos .type por .fill e corrigimos a grafia de confirmarSenha (ajuste se necessário)
+    // Troquei .type por .fill e corrigimos a grafia de confirmarSenha (ajuste se necessário)
     async cadastrarMotorista(nome: string, email: string, telefone: string, numeroCnh: string, senha: string, confirmarSenha: string) {
         await this.page.goto('https://omnibusdrive.up.railway.app/cadastro_motorista');
         await this.page.fill('input[name="nome"]', nome);
