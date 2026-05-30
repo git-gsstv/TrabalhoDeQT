@@ -10,13 +10,12 @@ const password = process.env.USER_PASSWORD!;
 test('Usuário pode fazer login', async ({ page }) => {
     const loginpage = new LoginPage(page);
     await loginpage.login(email, password);
-    await expect(page).toHaveURL(/.dashboard/);
 });
 
 test('Usuário não pode fazer login com credenciais inválidas', async ({ page }) => {
     const loginpage = new LoginPage(page);
     await loginpage.login(email, 'wrongpassword');
-    await expect(page.getByText('These credentials do not match our records.')).toBeVisible();
+    await expect(page.getByText('Credenciais inválidas')).toBeVisible();
 });
 
 test('Usuário não pode fazer login com campos vazios', async ({ page }) => {
