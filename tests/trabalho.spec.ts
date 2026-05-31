@@ -106,15 +106,20 @@ test.describe.serial('Tristes: Create e Edit', () => {
 
 test.describe.serial('Borda: Create e Edit', () => {
 
-  test('Usuário tenta cadastrar um trabalho com descrição acima de 500 caracteres', async ({ page }) => {
+  test('Usuário tenta cadastrar um trabalho com descrição acima de 100 caracteres', async ({ page }) => {
     await abrirModalTrabalho(page);
-
+ 
     await page.locator('#workType').selectOption('Artigo');
-    await page.getByRole('textbox', { name: 'Ex: Pesquisa de História...' }).fill('A'.repeat(501));
+    await page.evaluate(() => {
+      const input = document.querySelector('#workDescription') as HTMLInputElement;
+      input.value = 'A'.repeat(101);
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    });
     await page.locator('#workDueDate').fill(dataFutura(5));
     await page.getByRole('button', { name: 'Salvar Trabalho' }).click();
-
-    await expect(page.getByText('A descrição não pode exceder 500 caracteres.', { exact: false })).toBeVisible();
+ 
+    await expect(page.getByText('A descrição deve ter no máximo 100 caracteres.', { exact: false })).toBeVisible();
   });
 
   test('Usuário edita um trabalho e muda a data para ontem', async ({ page }) => {
@@ -128,7 +133,7 @@ test.describe.serial('Borda: Create e Edit', () => {
     await page.locator('#workDueDate').fill(dataPassada(1));
     await page.getByRole('button', { name: 'Salvar Trabalho' }).click();
 
-    await expect(page.getByText('A data não pode ser anterior a hoje.', { exact: false })).toBeVisible();
+    await expect(page.getByText('A data não pode estar no passado.', { exact: false })).toBeVisible();
   });
 
 });
