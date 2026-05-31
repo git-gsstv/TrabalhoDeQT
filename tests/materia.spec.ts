@@ -81,7 +81,7 @@ test.describe.serial('Borda: Create e Edit', () => {
     await abrirModalCadastro(page);
 
     await page.locator('#modalSubjectName').selectOption('Física');
-    await page.getByRole('textbox', { name: 'Ex: Prof. João Silva' }).fill('dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd');
+    await page.getByRole('textbox', { name: 'Ex: Prof. João Silva' }).fill('A'.repeat(256));
     await page.locator('#modalSubjectSemester').selectOption('3');
     await page.getByRole('button', { name: 'Salvar matéria' }).click();
 
