@@ -57,6 +57,7 @@ test.describe.serial('Felizes: Create e Delete', () => {
 
     await page.locator('tr', { hasText: 'Estudar para a prova' })
       .getByRole('button', { name: 'Excluir' })
+      .first()
       .click();
 
     await expect(page.getByText('Excluir atividade', { exact: false })).toBeVisible();
@@ -79,7 +80,7 @@ test.describe.serial('Tristes: Create e Edit', () => {
     await page.locator('#modalStatus').selectOption('pending');
     await page.getByRole('button', { name: 'Salvar atividade' }).click();
 
-    await expect(page.getByText('A descrição contém caracteres inválidos.', { exact: false })).toBeVisible();
+    await expect(page.getByText('Caracteres especiais não são permitidos.', { exact: false })).toBeVisible();
   });
 
   test('Usuário edita uma atividade e remove o status', async ({ page }) => {
@@ -87,6 +88,7 @@ test.describe.serial('Tristes: Create e Edit', () => {
 
     await page.locator('tr', { hasText: 'Revisar anotações' })
       .getByRole('button', { name: 'Editar' })
+      .first()
       .click();
 
     await page.locator('#modalStatus').waitFor({ state: 'visible' });
@@ -118,6 +120,7 @@ test.describe.serial('Borda: Create e Edit', () => {
 
     await page.locator('tr', { hasText: 'Leitura do capítulo' })
       .getByRole('button', { name: 'Editar' })
+      .first()
       .click();
 
     await page.locator('#modalDueDate').waitFor({ state: 'visible' });

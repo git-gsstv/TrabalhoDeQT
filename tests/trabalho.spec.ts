@@ -49,6 +49,7 @@ test.describe.serial('Felizes: Create, Edit e Delete', () => {
 
     await page.locator('tr', { hasText: 'Pesquisa sobre IA' })
       .getByRole('button', { name: 'Editar' })
+      .first()
       .click();
 
     await page.locator('#workType').waitFor({ state: 'visible' });
@@ -65,6 +66,7 @@ test.describe.serial('Felizes: Create, Edit e Delete', () => {
 
     await page.locator('tr', { hasText: 'Pesquisa sobre IA atualizada' })
       .getByRole('button', { name: 'Excluir' })
+      .first()
       .click();
 
     await expect(page.getByText('Excluir trabalho', { exact: false })).toBeVisible();
@@ -93,6 +95,7 @@ test.describe.serial('Tristes: Create e Edit', () => {
 
     await page.locator('tr', { hasText: 'Trabalho de QT' })
       .getByRole('button', { name: 'Editar' })
+      .first()
       .click();
 
     await page.locator('#workType').waitFor({ state: 'visible' });
@@ -127,6 +130,7 @@ test.describe.serial('Borda: Create e Edit', () => {
 
     await page.locator('tr', { hasText: 'Trabalho de revisão' })
       .getByRole('button', { name: 'Editar' })
+      .first()
       .click();
 
     await page.locator('#workDueDate').waitFor({ state: 'visible' });

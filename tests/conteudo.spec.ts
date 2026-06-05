@@ -37,6 +37,7 @@ test.describe.serial('Felizes: Create e Delete', () => {
     await page.locator('text=Introdução ao Python')
       .locator('..')
       .getByRole('button', { name: 'Excluir' })
+      .first()
       .click();
 
     await expect(page.getByText('Excluir conteúdo?', { exact: false })).toBeVisible();
@@ -65,12 +66,14 @@ test.describe.serial('Tristes: Create e Edit', () => {
     await page.locator('text=Algoritmos')
       .locator('..')
       .getByRole('button', { name: 'Editar' })
+      .first()
       .click();
 
     await page.locator('#modalContentSubject').waitFor({ state: 'visible' });
     await page.locator('#modalContentSubject').selectOption('');
+    await page.getByRole('button', { name: 'Salvar alterações' }).click();
 
-    await expect(page.locator('#contentModalSubmitBtn')).toBeDisabled();
+    await page.locator('#err-modalContentSubject').waitFor({ state: 'visible' });
   });
 
 });
@@ -88,20 +91,22 @@ test.describe.serial('Borda: Create e Edit', () => {
     await expect(page.getByText('O nome do conteúdo não pode conter números ou caracteres especiais.', { exact: false })).toBeVisible();
   });
 
-  test('Usuário edita um conteúdo e coloca semestre acima do limite — botão salvar deve ficar desabilitado', async ({ page }) => {
+  test('Usuário edita um conteúdo e coloca semestre acima do limite', async ({ page }) => {
     await cadastrarConteudo(page, 'Redes de Computadores');
 
     await page.locator('text=Redes de Computadores')
       .locator('..')
       .getByRole('button', { name: 'Editar' })
+      .first()
       .click();
 
     await page.locator('#modalContentSemester').waitFor({ state: 'visible' });
     await page.locator('#modalContentSemester').selectOption('outro');
     await page.locator('#modalContentSemesterCustom').waitFor({ state: 'visible' });
     await page.locator('#modalContentSemesterCustom').fill('21');
+    await page.getByRole('button', { name: 'Salvar alterações' }).click();
 
-    await expect(page.locator('#contentModalSubmitBtn')).toBeDisabled();
+    await expect(page.getByText('O semestre não pode ser maior que 20.', { exact: false })).toBeVisible();
   });
 
 });

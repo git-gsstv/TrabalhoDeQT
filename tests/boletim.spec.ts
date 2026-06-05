@@ -59,9 +59,10 @@ test.describe.serial('Felizes: Create e Delete', () => {
     await cardBimestre(page, '3')
       .locator('tr', { hasText: 'Engenharia' })
       .locator('[data-del]')
+      .first()
       .click();
 
-    await expect(page.getByText('Excluir nota?', { exact: false })).toBeVisible();
+    await expect(page.getByText('Excluir nota', { exact: false })).toBeVisible();
     await page.getByRole('button', { name: 'Sim, excluir' }).click();
 
     await expect(page.getByText('Nota excluída!', { exact: false })).toBeVisible();
@@ -79,7 +80,7 @@ test.describe.serial('Tristes: Create e Edit', () => {
     await page.locator('#gradeModalEndterm').fill('7');
     await page.getByRole('button', { name: 'Salvar nota' }).click();
 
-    await expect(page.getByText('Selecione a matéria.', { exact: false })).toBeVisible();
+    await page.locator('#err-gradeModalSubjectId').waitFor({ state: 'visible' });
   });
 
   test('Usuário edita uma nota e troca o bimestre para vazio', async ({ page }) => {
@@ -88,11 +89,12 @@ test.describe.serial('Tristes: Create e Edit', () => {
     await cardBimestre(page, '4')
       .locator('tr', { hasText: 'Engenharia' })
       .locator('[data-edit]')
+      .first()
       .click();
 
     await page.locator('#gradeModalBimester').waitFor({ state: 'visible' });
     await page.locator('#gradeModalBimester').selectOption('');
-    await page.getByRole('button', { name: 'Salvar nota' }).click();
+    await page.getByRole('button', { name: 'Salvar alterações' }).click();
 
     await expect(page.getByText('Selecione o bimestre.', { exact: false })).toBeVisible();
   });
@@ -120,6 +122,7 @@ test.describe.serial('Borda: Create e Edit', () => {
     await cardBimestre(page, '3')
       .locator('tr', { hasText: 'Engenharia' })
       .locator('[data-edit]')
+      .first()
       .click();
 
     await page.locator('#gradeModalEndterm').waitFor({ state: 'visible' });

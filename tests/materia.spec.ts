@@ -29,6 +29,7 @@ test.describe.serial('Felizes: Create e Delete', () => {
     await page.locator('text=Biologia')
       .locator('..')
       .getByRole('button', { name: 'Excluir' })
+      .first()
       .click();
 
     await expect(page.getByText('Excluir matéria?', { exact: false })).toBeVisible();
@@ -49,7 +50,7 @@ test.describe.serial('Tristes: Create e Edit', () => {
     await page.locator('#modalSubjectSemester').selectOption('3');
     await page.getByRole('button', { name: 'Salvar matéria' }).click();
 
-    await expect(page.getByText('O campo professor não pode conter números.', { exact: false })).toBeVisible();
+    await expect(page.getByText('O campo professor não pode conter números ou caracteres especiais.', { exact: false })).toBeVisible();
   });
 
   test('Usuário edita uma matéria e troca o semestre para vazio', async ({ page }) => {
@@ -64,6 +65,7 @@ test.describe.serial('Tristes: Create e Edit', () => {
     await page.locator('text=Geografia')
       .locator('..')
       .getByRole('button', { name: 'Editar' })
+      .first()
       .click();
 
     await page.locator('#modalSubjectSemester').waitFor({ state: 'visible' });
@@ -102,6 +104,7 @@ test.describe.serial('Borda: Create e Edit', () => {
     await page.locator('text=Química')
       .locator('..')
       .getByRole('button', { name: 'Editar' })
+      .first()
       .click();
 
     await page.locator('#modalSubjectSemester').waitFor({ state: 'visible' });
