@@ -61,9 +61,9 @@ test.describe.serial('Tristes: Create e Edit', () => {
   });
 
   test('Usuário edita um conteúdo e remove a matéria — botão salvar deve ficar desabilitado', async ({ page }) => {
-    await cadastrarConteudo(page, 'Algoritmos');
+    await cadastrarConteudo(page, 'Lógica de Programação');
 
-    await page.locator('text=Algoritmos')
+    await page.locator('text=Lógica de Programação')
       .locator('..')
       .getByRole('button', { name: 'Editar' })
       .first()
@@ -92,9 +92,9 @@ test.describe.serial('Borda: Create e Edit', () => {
   });
 
   test('Usuário edita um conteúdo e coloca semestre acima do limite', async ({ page }) => {
-    await cadastrarConteudo(page, 'Redes de Computadores');
+    await cadastrarConteudo(page, 'Arquitetura de Computadores');
 
-    await page.locator('text=Redes de Computadores')
+    await page.locator('text=Arquitetura de Computadores')
       .locator('..')
       .getByRole('button', { name: 'Editar' })
       .first()
